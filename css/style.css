@@ -702,14 +702,16 @@ body {
   z-index: 1;
   transform-origin: center bottom; /* ズームアウトの基準点を一番下に設定 */
   will-change: transform;
-  transform: translate3d(0, 0, 0) scale(1.25); /* ピンチイン感（縮小）を出すため初期拡大率をアップ */
+  transform: translate3d(0, 0, 0) scale(1.18); /* 描画負荷を抑えてループ時の引っかかりを緩和するため1.25から1.18に調整 */
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  /* スムーズかつ徐々に減速するイージングで心地よい縮小感を表現 */
-  animation: fvBgZoomOut 35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  perspective: 1000px; /* GPUレイヤーのレンダリングを安定化 */
+  /* 10秒かけて縮小（ピンチイン）し、最初に戻って無限に繰り返す */
+  animation: fvBgZoomOut 10s linear infinite;
 }
 
 @keyframes fvBgZoomOut {
-  0% { transform: translate3d(0, 0, 0) scale(1.25); }
+  0% { transform: translate3d(0, 0, 0) scale(1.18); }
   100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 
@@ -736,27 +738,25 @@ body {
   letter-spacing: 0.15em;
   font-size: clamp(28px, 3.5vw, 50px);
   opacity: 0;
-  animation: fvSoftFadeIn 2.5s ease-out forwards;
+  animation: fvSoftFadeIn 1.2s ease-out forwards;
 }
 
 .fv-catch-line-1 {
-  animation-delay: 3.8s; /* ダイバーの表示(合計3.5s)が終わった後から表示開始 */
+  animation-delay: 1.2s; /* ダイバーが表示され始めたら（2.5sの完了を待たずに）早期に表示開始 */
 }
 
 .fv-catch-line-2 {
   padding-left: 0;
-  animation-delay: 5.3s; /* 1.5s遅れて表示 */
+  animation-delay: 2.2s; /* 1.0s遅れて順次表示 */
 }
 
 @keyframes fvSoftFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(10px);
     filter: blur(2px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
     filter: blur(0);
   }
 }
