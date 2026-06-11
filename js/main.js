@@ -37,10 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Randomize size (5px to 25px)
       const size = 5 + Math.random() * 20;
-      // Randomize horizontal position tightly around the diver (45% to 55%)
-      const left = 45 + Math.random() * 10;
-      // Randomize starting vertical position near the diver (roughly 20% to 35% from the bottom)
-      const bottom = 20 + Math.random() * 15;
+      // Determine positions based on window width (responsive diver mouth position)
+      const isMobile = window.innerWidth <= 768;
+      const left = isMobile 
+        ? (52 + Math.random() * 4)
+        : (72 + Math.random() * 4);
+      const bottom = isMobile
+        ? (28 + Math.random() * 6)
+        : (52 + Math.random() * 6);
       // Randomize animation duration (2s to 5s for a natural rise)
       const duration = 2 + Math.random() * 3;
       

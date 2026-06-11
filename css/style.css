@@ -234,7 +234,7 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 2; /* Behind catch copy and diver (z-index: 5), above marquee (1) */
+  z-index: 5; /* On top of diver (z-index: 4) */
   overflow: hidden;
   animation: fadeIn 1s ease-out 0.9s both; /* 4. Bubbles */
 }
@@ -257,7 +257,7 @@ body {
     opacity: 1;
   }
   100% {
-    transform: translateY(-80vh) scale(1.5);
+    transform: translateY(-45vh) scale(0);
     opacity: 0;
   }
 }
@@ -698,7 +698,19 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center bottom; /* 背景動画の一番下を常に見せる */
   z-index: 1;
+  transform-origin: center bottom; /* ズームアウトの基準点を一番下に設定 */
+  will-change: transform;
+  transform: translate3d(0, 0, 0) scale(1.25); /* ピンチイン感（縮小）を出すため初期拡大率をアップ */
+  backface-visibility: hidden;
+  /* スムーズかつ徐々に減速するイージングで心地よい縮小感を表現 */
+  animation: fvBgZoomOut 35s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fvBgZoomOut {
+  0% { transform: translate3d(0, 0, 0) scale(1.25); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
 }
 
 /* 画面左側キャッチコピー */
@@ -710,7 +722,7 @@ body {
   z-index: 5;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
   color: #fff;
   font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "MS Mincho", serif;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -719,38 +731,49 @@ body {
 
 .fv-catch-line {
   display: block;
-  font-weight: 700;
-  line-height: 1.4;
+  font-weight: 300; /* 細身のフォントウェイトに変更 */
+  line-height: 1.3;
   letter-spacing: 0.15em;
+  font-size: clamp(28px, 3.5vw, 50px);
   opacity: 0;
-  transform: translateY(30px);
-  animation: fvFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fvSoftFadeIn 2.5s ease-out forwards;
 }
 
 .fv-catch-line-1 {
-  font-size: clamp(28px, 3.2vw, 48px);
-  animation-delay: 0.3s;
+  animation-delay: 3.8s; /* ダイバーの表示(合計3.5s)が終わった後から表示開始 */
 }
 
 .fv-catch-line-2 {
-  font-size: clamp(38px, 4.8vw, 72px);
-  padding-left: 1.5em; /* 2行目を少し右にずらす */
-  animation-delay: 0.6s;
+  padding-left: 0;
+  animation-delay: 5.3s; /* 1.5s遅れて表示 */
+}
+
+@keyframes fvSoftFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 /* 画面右側ダイバー画像 */
 .fv-diver {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 48%;
-  height: 90%;
+  right: 8%;
+  bottom: 4%; /* 下の窮屈さを解消するため少し上に配置 */
+  width: 42%; /* サイズを少し小さく */
+  height: 80%; /* サイズを少し小さく */
   z-index: 4;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-content: center;
   pointer-events: none;
-  animation: fvDiverFadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fvDiverSoftFadeIn 2.5s ease-out both; /* 読み込み後すぐに（遅延なし）表示開始 */
 }
 
 .fv-diver img {
@@ -761,21 +784,14 @@ body {
   animation: fvDiverFloat 8s ease-in-out infinite;
 }
 
-@keyframes fvFadeUp {
+@keyframes fvDiverSoftFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes fvDiverFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(50px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
   }
 }
 
@@ -791,36 +807,35 @@ body {
     width: 90%;
     top: 35%;
     transform: translateY(-50%);
-    gap: 10px;
+    gap: 6px;
   }
   
-  .fv-catch-line-1 {
-    font-size: 24px;
+  .fv-catch-line {
+    font-size: 28px;
   }
   
   .fv-catch-line-2 {
-    font-size: 36px;
-    padding-left: 0.5em;
+    padding-left: 0;
   }
   
   .fv-diver {
-    width: 80%;
-    height: 50%;
+    width: 70%; /* モバイルのサイズも少し小さく */
+    height: 42%; /* モバイルのサイズも少し小さく */
     right: 50%;
     transform: translateX(50%);
-    bottom: 5%;
+    bottom: 7%; /* 下の窮屈さを解消するため少し上に配置 */
     justify-content: center;
-    animation: fvDiverFadeInMobile 1.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fvDiverFadeInMobile 2.5s ease-out both; /* 読み込み後すぐに（遅延なし）表示開始 */
   }
   
   @keyframes fvDiverFadeInMobile {
     from {
       opacity: 0;
-      transform: translate(50%, 30px) scale(0.95);
+      transform: translate(50%, 20px);
     }
     to {
       opacity: 1;
-      transform: translate(50%, 0) scale(1);
+      transform: translate(50%, 0);
     }
   }
 }
