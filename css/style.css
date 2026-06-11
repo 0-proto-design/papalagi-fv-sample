@@ -1,0 +1,688 @@
+/* =========================================
+   Reset & Base
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  color: #333;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   Header
+   ========================================= */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 4%;
+  z-index: 100;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 透過ヘッダー用モディファイア */
+.header.is-transparent {
+  background-color: transparent;
+}
+
+.header.is-transparent .header-nav a {
+  color: #fff;
+}
+
+
+.header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.header-logo img {
+  height: 60px;
+  width: auto;
+  vertical-align: middle;
+}
+
+.logo-text-ja {
+  display: none;
+}
+
+.header-nav {
+  width: 100%;
+}
+
+.header-nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 2vw;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  transition: opacity 0.3s ease;
+  display: block;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.header-nav a:hover {
+  opacity: 0.7;
+}
+
+/* Menu Button (Mobile) */
+.menu-btn {
+  display: none;
+}
+
+/* =========================================
+   First View (FV)
+   ========================================= */
+.fv {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+/* Videos */
+.fv-videos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fv-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.fv-video.active {
+  opacity: 1;
+}
+
+.fv-bubble-rush {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Overlay Elements */
+.fv-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Entrance Animations */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes popInDiver {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) translateY(20px);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Marquee Effect */
+.marquee-container {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  z-index: 1;
+  animation: fadeIn 1s ease-out 1.2s both; /* 5. Marquee */
+}
+
+.marquee-content {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100%;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-content span {
+  padding: 0 2vw;
+  font-size: 12vw;
+  font-weight: 900;
+  font-family: 'Arial Black', Impact, sans-serif;
+  color: transparent;
+  -webkit-text-stroke: 4px rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Bubbles Effect */
+#bubbles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2; /* Behind catch copy and diver (z-index: 5), above marquee (1) */
+  overflow: hidden;
+  animation: fadeIn 1s ease-out 0.9s both; /* 4. Bubbles */
+}
+
+.bubble {
+  position: absolute;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.03) 70%, rgba(255, 255, 255, 0.25) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 0.2), inset 1px 1px 3px rgba(255, 255, 255, 0.5);
+  animation: rise ease-in forwards;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-80vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Catch Copy Container */
+.catch-copy-container {
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 800px;
+}
+
+.catch-copy-text-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  z-index: 5; /* ダイバーの上に重ねる */
+  transform: rotate(-7deg); /* 全体を右上がりに傾ける */
+  transform-origin: center center;
+}
+
+.catch-copy-text {
+  color: #fff;
+  font-family: 'Arial Black', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  font-weight: 900;
+  margin: 0;
+  white-space: nowrap;
+  letter-spacing: -0.08em; /* 文字同士をしっかり詰めて迫力を出す */
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.catch-copy-text span {
+  display: inline-block;
+  margin-right: -0.16em; /* 改行による余白を相殺し、文字同士を綺麗に密着させる（少しだけ広げて調整） */
+  opacity: 0;
+  transform: scale(0.5) translateY(20px);
+  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: calc(var(--char-index) * 0.06s);
+}
+
+.catch-copy-text.line-1 {
+  align-self: flex-start;
+  font-size: 48px;
+}
+
+.catch-copy-text.line-2 {
+  align-self: flex-start;
+  font-size: 70px;
+  margin-top: -10px; /* 行間を極限まで詰める */
+  margin-left: 1.7em; /* 「ン」の開始位置（「ダ」「イ」「ビ」の3文字分の幅）に合わせる */
+}
+
+/* Diver Image Styling */
+.diver-img {
+  position: absolute;
+  top: 66%; /* 以前より少し上に配置 */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px; /* 少し大きく */
+  pointer-events: none;
+  z-index: 2;
+  animation: popInDiver 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s both;
+}
+
+.diver-img img {
+  width: 100%;
+  height: auto;
+  filter: 
+    drop-shadow(1px 1px 0 #fff) 
+    drop-shadow(-1px -1px 0 #fff) 
+    drop-shadow(1px -1px 0 #fff) 
+    drop-shadow(-1px 1px 0 #fff)
+    drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+  animation: diverFloat 8s ease-in-out infinite;
+}
+
+@keyframes diverFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, -20px) rotate(5deg); }
+}
+
+
+
+/* Wave Bottom */
+.wave-container {
+  position: absolute;
+  bottom: -2px; /* Prevent tiny gaps */
+  left: 0;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-size: 50% 100%;
+}
+
+.wave1 {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,60 C150,100 350,0 600,60 C850,120 1050,20 1200,60 L1200,120 Z" fill="%23c5e6fa"/></svg>');
+  animation: moveWave 15s linear infinite;
+}
+
+.wave2 {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,80 C200,10 400,110 600,80 C800,50 1000,120 1200,80 L1200,120 Z" fill="rgba(197, 230, 250, 0.5)"/></svg>');
+  animation: moveWave 10s linear infinite;
+}
+
+.wave3 {
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,120 L0,40 C250,90 350,20 600,40 C850,60 950,10 1200,40 L1200,120 Z" fill="rgba(197, 230, 250, 0.3)"/></svg>');
+  animation: moveWave 20s linear infinite;
+}
+
+@keyframes moveWave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* =========================================
+   Start Diving Section
+   ========================================= */
+.start-diving {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.start-diving-top-decor {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+}
+
+.light-blue-curve {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  max-width: 95%;
+  height: 120px;
+  background-color: #e5f3fc;
+  border-radius: 0 0 350px 350px;
+}
+
+.dark-blue-triangle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 40px solid #162a4d;
+}
+
+.start-diving-header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  margin-top: -70px;
+}
+
+.section-title-en {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 110px;
+  font-weight: 900;
+  font-family: 'Arial Black', Impact, sans-serif;
+  color: transparent;
+  -webkit-text-stroke: 1px #c1deef;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  z-index: 1;
+  margin: 0;
+}
+
+@supports not (-webkit-text-stroke: 1px #c1deef) {
+  .section-title-en {
+    color: #e5f3fc;
+  }
+}
+
+.section-title-ja {
+  position: relative;
+  font-size: 44px;
+  font-weight: bold;
+  color: #162a4d;
+  z-index: 2;
+  margin: 0;
+  letter-spacing: 0.1em;
+}
+
+.start-diving-desc {
+  margin-top: 40px;
+  font-size: 18px;
+  line-height: 2;
+  color: #333;
+  font-weight: 500;
+}
+
+/* =========================================
+   Media Queries (Responsive)
+   ========================================= */
+@media (max-width: 768px) {
+  .header {
+    padding: 4px 4%; /* ヘッダーを窮屈にさせない元の適度な余白に戻す */
+  }
+
+  .header-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .header-logo img {
+    height: 46px; /* ロゴサイズを大きくし、ヘッダー内に美しく収める */
+    display: block;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  /* Mobile Menu Button */
+  .menu-btn {
+    display: block;
+    width: 38px; /* サイズを大きく */
+    height: 38px; /* サイズを大きく */
+    background-color: #1a2b4c;
+    border-radius: 50%;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    margin-right: 0;
+  }
+
+  .menu-btn span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px; /* バーの幅も大きくして押しやすく */
+    height: 2px; /* バーの太さも少しアップ */
+    background-color: #fff;
+  }
+
+  .menu-btn span:nth-child(1) { top: 14px; }
+  .menu-btn span:nth-child(2) { top: 22px; }
+
+  /* Catch Copy Mobile Adjustments */
+  .catch-copy-container {
+    top: 35%; /* FVの中央少し上に配置 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    width: 92%;
+  }
+
+  .catch-copy-text.line-1 {
+    font-size: 6.5vw; /* 画面幅からはみ出さないサイズに調整 */
+    margin-bottom: 0;
+  }
+
+  .catch-copy-text.line-2 {
+    align-self: flex-start;
+    font-size: 10.5vw; /* 画面幅からはみ出さないサイズに調整 */
+    margin-top: -5px;
+    margin-left: 1.55em; /* モバイルの文字サイズ比率に合わせた「ン」の開始位置 */
+  }
+
+  .diver-img {
+    position: absolute;
+    top: 64%; /* 以前より少し上に配置 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 370px;
+    z-index: 2;
+  }
+
+
+
+  .marquee-content span {
+    font-size: 15vw;
+    -webkit-text-stroke: 2.5px rgba(255, 255, 255, 0.5); /* Slightly thicker stroke */
+  }
+
+  /* Start Diving Mobile Adjustments */
+  .wave-container {
+    height: 60px;
+  }
+
+  .start-diving-top-decor {
+    height: 60px;
+  }
+  .light-blue-curve {
+    width: 90%;
+    height: 40px;
+    border-radius: 0 0 45vw 45vw;
+  }
+  .dark-blue-triangle {
+    border-left-width: 25px;
+    border-right-width: 25px;
+    border-top-width: 20px;
+  }
+  .start-diving-header {
+    height: 100px;
+    margin-top: -50px;
+  }
+  .section-title-en {
+    font-size: 14vw;
+  }
+  .section-title-ja {
+    font-size: 24px;
+  }
+}
+
+/* =========================================
+   Floating Contact Button
+   ========================================= */
+.floating-contact-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 110px;
+  height: 110px;
+  background-color: #ffeb3b;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-contact-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.floating-contact-btn svg {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 2px;
+  fill: #162a4d;
+}
+
+.floating-contact-btn span {
+  color: #162a4d;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .floating-contact-btn {
+    width: 80px;
+    height: 80px;
+    bottom: 20px;
+    right: 20px; /* Slightly adjusted to prevent clipping on mobile */
+  }
+  .floating-contact-btn svg {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 1px;
+  }
+  .floating-contact-btn span {
+    font-size: 9px;
+  }
+}
+
+/* =========================================
+   Pattern 2 Specific Styles
+   ========================================= */
+.page-pattern-2 .header {
+  position: fixed;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-pattern-2 .header.is-show {
+  transform: translateY(0);
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.page-pattern-2 .header.is-show .header-nav a {
+  color: #000;
+}
+
+/* FV下セクション（.start-diving）の下側余白を調整 */
+.page-pattern-2 .start-diving {
+  padding-bottom: 800px;
+}
+
+/* パターン2専用：ヘッダー非表示に伴うキャッチコピーとダイバー画像の位置引き上げ */
+.page-pattern-2 .catch-copy-container {
+  top: 90px;
+}
+.page-pattern-2 .diver-img {
+  top: 60%;
+}

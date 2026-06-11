@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAPALAGI DIVING SCHOOL</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="header-logo">
+        <a href="#">
+          <img src="img/sample/logo.png" alt="PAPALAGI DIVING SCHOOL">
+        </a>
+      </h1>
+      <nav class="header-nav">
+        <ul>
+          <li><a href="#">ダイビングを<br>始める</a></li>
+          <li><a href="#">ダイビングを<br>楽しむツアー</a></li>
+          <li><a href="#">レベルアップで<br>極める</a></li>
+          <li><a href="#">キャンペーン</a></li>
+          <li><a href="#">仲間が出来る<br>イベント</a></li>
+          <li><a href="#">海を知る<br>セミナー</a></li>
+          <li><a href="#">パパラギ<br>ご紹介</a></li>
+          <li><a href="#">お知らせ</a></li>
+          <li><a href="#">店舗案内</a></li>
+          <li><a href="#">アルバム</a></li>
+        </ul>
+      </nav>
+      <button class="menu-btn">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="fv">
+      <!-- 移り変わる背景動画 -->
+      <div class="fv-videos">
+        <video class="fv-video active" src="img/sample/bg-1.mp4" muted playsinline></video>
+        <video class="fv-video" src="img/sample/bg-2.mp4" muted playsinline></video>
+        <video class="fv-video" src="img/sample/bg-3.mp4" muted playsinline></video>
+        <!-- 背景透過エフェクト動画 -->
+        <video class="fv-bubble-rush" src="img/sample/bubble-rush.mp4" muted autoplay loop playsinline></video>
+      </div>
+
+      <div class="fv-overlay">
+        <!-- 背景流れるテキスト -->
+        <div class="marquee-container">
+          <div class="marquee-content">
+            <span>START YOUR ADVENTURE.</span>
+            <span>START YOUR ADVENTURE.</span>
+          </div>
+          <div class="marquee-content">
+            <span>START YOUR ADVENTURE.</span>
+            <span>START YOUR ADVENTURE.</span>
+          </div>
+        </div>
+
+        <!-- 泡エフェクト用コンテナ -->
+        <div id="bubbles-container"></div>
+
+        <!-- キャッチコピー（SVGマスクによる確実な切り抜き） -->
+        <div class="catch-copy-container">
+          <div class="catch-copy-text-inner">
+            <!-- 1行目: ダイビングの楽しさ、 -->
+            <h2 class="catch-copy-text line-1" aria-label="ダイビングの楽しさ、">
+              <span style="--char-index: 1;">ダ</span>
+              <span style="--char-index: 2;">イ</span>
+              <span style="--char-index: 3;">ビ</span>
+              <span style="--char-index: 4;">ン</span>
+              <span style="--char-index: 5;">グ</span>
+              <span style="--char-index: 6;">の</span>
+              <span style="--char-index: 7;">楽</span>
+              <span style="--char-index: 8;">し</span>
+              <span style="--char-index: 9;">さ</span>
+              <span style="--char-index: 10;">、</span>
+            </h2>
+            <!-- 2行目: ここで始まる！ -->
+            <h2 class="catch-copy-text line-2" aria-label="ここで始まる！">
+              <span style="--char-index: 11;">こ</span>
+              <span style="--char-index: 12;">こ</span>
+              <span style="--char-index: 13;">で</span>
+              <span style="--char-index: 14;">始</span>
+              <span style="--char-index: 15;">ま</span>
+              <span style="--char-index: 16;">る</span>
+              <span style="--char-index: 17;">！</span>
+            </h2>
+          </div>
+          
+        </div>
+
+        <!-- ダイバー画像（FV真ん中に独立して配置） -->
+        <div class="diver-img">
+          <img src="img/sample/diver.png" alt="diver">
+        </div>
+      </div>
+
+      <!-- ゆらゆらする波の境界 -->
+      <div class="wave-container">
+        <div class="wave wave3"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave1"></div>
+      </div>
+    </section>
+
+    <!-- START DIVING Section -->
+    <section class="start-diving">
+      <div class="start-diving-top-decor">
+        <div class="light-blue-curve"></div>
+        <div class="dark-blue-triangle"></div>
+      </div>
+      
+      <div class="start-diving-header">
+        <h2 class="section-title-en">START DIVING</h2>
+        <p class="section-title-ja">ダイビングを始めよう</p>
+      </div>
+      
+      <div class="start-diving-desc">
+        <p>ダイビングの入り口はここから！<br>
+        日程を自由に選べる伊豆コース、リゾートでダイバーになる沖縄コース、<br>
+        中高年の方でもマイペースで安心して受講できるプラチナ・コースなど、<br>
+        パパラギならあなたにぴったりのコースをお選びいただけます！</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- お問い合わせフローティングボタン -->
+  <a href="#" class="floating-contact-btn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+    <span>お問い合わせ</span>
+  </a>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
