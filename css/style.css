@@ -742,11 +742,45 @@ body {
   animation: fvDiverSoftFadeIn 2.5s ease-out both; /* 読み込み後すぐに（遅延なし）表示開始 */
 }
 
-.fv-diver img {
+.fv-diver-img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
+  position: relative;
+  z-index: 2;
+}
+
+.fv-diver-bubble {
+  position: absolute;
+  bottom: 25%; /* ダイバーの頭部あたりに泡が重なるように調整 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+  animation: bubbleUp 10s ease-in-out infinite;
+}
+
+@keyframes bubbleUp {
+  0% {
+    transform: translate(-50%, 0) scale(0.9);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-47%, -10%) scale(0.95);
+  }
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-53%, -20%) scale(1);
+    opacity: 0;
+  }
 }
 
 @keyframes fvDiverSoftFadeIn {
