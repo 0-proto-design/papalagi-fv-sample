@@ -760,6 +760,7 @@ body {
   height: auto;
   z-index: 1;
   pointer-events: none;
+  opacity: 0.8; /* 少しだけ透過 */
   filter: brightness(3.0) contrast(1.5); /* もっと白っぽくする加工 */
 }
 
