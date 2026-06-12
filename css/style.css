@@ -226,41 +226,6 @@ body {
   100% { transform: translateX(-100%); }
 }
 
-/* Bubbles Effect */
-#bubbles-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5; /* On top of diver (z-index: 4) */
-  overflow: hidden;
-  animation: fadeIn 1s ease-out 0.9s both; /* 4. Bubbles */
-}
-
-.bubble {
-  position: absolute;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.03) 70%, rgba(255, 255, 255, 0.25) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  box-shadow: inset -1px -1px 3px rgba(255, 255, 255, 0.2), inset 1px 1px 3px rgba(255, 255, 255, 0.5);
-  animation: rise ease-in forwards;
-}
-
-@keyframes rise {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-45vh) scale(0);
-    opacity: 0;
-  }
-}
 
 /* Catch Copy Container */
 .catch-copy-container {
@@ -734,7 +699,7 @@ body {
 
 .fv-catch-line {
   display: block;
-  font-weight: 300; /* 細身のフォントウェイトに変更 */
+  font-weight: 500; /* 少し太いフォントウェイトに変更 */
   line-height: 1.3;
   letter-spacing: 0.15em;
   font-size: clamp(28px, 3.5vw, 50px);
@@ -754,7 +719,7 @@ body {
 @keyframes fvSoftFadeIn {
   0% {
     opacity: 0;
-    filter: blur(2px);
+    filter: blur(8px);
   }
   100% {
     opacity: 1;
@@ -782,23 +747,17 @@ body {
   max-height: 100%;
   object-fit: contain;
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.4));
-  animation: fvDiverFloat 8s ease-in-out infinite;
 }
 
 @keyframes fvDiverSoftFadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    filter: blur(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    filter: blur(0);
   }
-}
-
-@keyframes fvDiverFloat {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(1.5deg); }
 }
 
 /* レスポンシブ調整 */
@@ -832,11 +791,13 @@ body {
   @keyframes fvDiverFadeInMobile {
     from {
       opacity: 0;
-      transform: translate(50%, 20px);
+      transform: translate(50%, 0);
+      filter: blur(10px);
     }
     to {
       opacity: 1;
       transform: translate(50%, 0);
+      filter: blur(0);
     }
   }
 }
