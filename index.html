@@ -54,7 +54,12 @@
 
         <!-- 画面右側ダイバー画像 -->
         <div class="fv-diver">
-          <video class="fv-diver-bubble" src="img/fv-bubble.webm" autoplay loop muted playsinline></video>
+          <video class="fv-diver-bubble" autoplay loop muted playsinline>
+            <source src="img/fv-bubble.webm" type="video/webm">
+            <source src="img/fv-bubble.mov" type="video/quicktime">
+            <!-- fallback for mp4 if needed, but mov is provided -->
+            <source src="img/fv-bubble.mov" type="video/mp4">
+          </video>
           <img class="fv-diver-img" src="img/fv-diver.png" alt="Diver">
         </div>
       </div>
