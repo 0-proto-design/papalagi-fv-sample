@@ -671,14 +671,14 @@ body {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   perspective: 1000px; /* GPUレイヤーのレンダリングを安定化 */
-  /* 10秒かけて縮小（ピンチイン）し、最初に戻って無限に繰り返す */
-  animation: fvBgZoomOut 10s linear infinite;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out; /* 1.5秒から0.5秒に短縮して動画を最後まで見せる */
 }
 
 .fv-bg-video.active {
   opacity: 1;
+  /* activeクラスが付与された瞬間（再生開始）からズームアウトを10秒かけて実行 */
+  animation: fvBgZoomOut 10s linear forwards;
 }
 
 
