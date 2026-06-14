@@ -54,12 +54,21 @@
 
         <!-- 画面右側ダイバー画像 -->
         <div class="fv-diver">
-          <video class="fv-diver-bubble" autoplay loop muted playsinline>
-            <source src="img/fv-bubble.webm" type="video/webm">
-            <source src="img/fv-bubble.mov" type="video/quicktime">
-            <!-- fallback for mp4 if needed, but mov is provided -->
-            <source src="img/fv-bubble.mov" type="video/mp4">
-          </video>
+          <video class="fv-diver-bubble" id="fv-bubble-video" autoplay loop muted playsinline></video>
+          <script>
+            (function() {
+              var video = document.getElementById('fv-bubble-video');
+              var updateVideoSrc = function() {
+                var isSp = window.matchMedia('(max-width: 768px)').matches;
+                var newSrc = isSp ? 'img/fv-bubble.mov' : 'img/fv-bubble.webm';
+                if (video.getAttribute('src') !== newSrc) {
+                  video.src = newSrc;
+                }
+              };
+              updateVideoSrc();
+              window.addEventListener('resize', updateVideoSrc);
+            })();
+          </script>
           <img class="fv-diver-img" src="img/fv-diver.png" alt="Diver">
         </div>
       </div>
