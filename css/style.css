@@ -673,6 +673,12 @@ body {
   perspective: 1000px; /* GPUレイヤーのレンダリングを安定化 */
   /* 10秒かけて縮小（ピンチイン）し、最初に戻って無限に繰り返す */
   animation: fvBgZoomOut 10s linear infinite;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.fv-bg-video.active {
+  opacity: 1;
 }
 
 
