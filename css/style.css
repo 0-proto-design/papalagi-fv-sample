@@ -667,7 +667,7 @@ body {
   z-index: 1;
   transform-origin: center bottom; /* ズームアウトの基準点を一番下に設定 */
   will-change: transform;
-  transform: translate3d(0, 0, 0) scale(1.18); /* 描画負荷を抑えてループ時の引っかかりを緩和するため1.25から1.18に調整 */
+  transform: translate3d(0, 0, 0) scale(1); /* デフォルト状態はズームアウト完了後のscale(1)にする */
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   perspective: 1000px; /* GPUレイヤーのレンダリングを安定化 */
@@ -677,7 +677,11 @@ body {
 
 .fv-bg-video.active {
   opacity: 1;
-  /* activeクラスが付与された瞬間（再生開始）からズームアウトを10秒かけて実行 */
+}
+
+/* 初回のみピンチインアニメーションを適用するためのクラス */
+.fv-bg-video.zoom-start {
+  /* クラスが付与された瞬間（再生開始）からズームアウトを10秒かけて実行 */
   animation: fvBgZoomOut 10s linear forwards;
 }
 

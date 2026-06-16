@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isTransitioning = false;
     const fadeDuration = 0.5; // フェード時間を0.5秒に短縮して動画を最後まで再生させる
 
-    bgVideos[0].classList.add('active');
+    bgVideos[0].classList.add('active', 'zoom-start');
     bgVideos[0].play().catch(err => console.log('Autoplay prevented', err));
 
     bgVideos.forEach((vid, idx) => {
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // CSSのトランジション（0.5秒）完了後に、古いビデオのactiveクラスを外して一時停止する
             setTimeout(() => {
               this.classList.remove('active');
+              this.classList.remove('zoom-start');
               this.pause();
               isTransitioning = false;
             }, fadeDuration * 1000);
