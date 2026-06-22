@@ -448,7 +448,7 @@ body {
 /* =========================================
    Media Queries (Responsive)
    ========================================= */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .header {
     padding: 4px 4%; /* ヘッダーを窮屈にさせない元の適度な余白に戻す */
   }
@@ -603,7 +603,7 @@ body {
   white-space: nowrap;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .floating-contact-btn {
     width: 80px;
     height: 80px;
@@ -786,7 +786,40 @@ body {
 }
 
 /* レスポンシブ調整 */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .fv-bg-video {
+    object-position: 68% bottom;
+    transform-origin: 68% bottom;
+  }
+
+  .fv-catch-copy {
+    top: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90%;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .fv-catch-line {
+    font-size: clamp(45px, 6vw, 72px);
+  }
+
+  .fv-diver {
+    width: 55%;
+    height: 65%;
+    right: 5%;
+    bottom: 2%;
+  }
+}
+
+@media (max-width: 767px) {
+  .fv-bg-video {
+    object-position: 58% bottom;
+    transform-origin: 58% bottom;
+  }
+
   .fv-catch-copy {
     left: 5%;
     width: 90%;
@@ -804,25 +837,12 @@ body {
   }
   
   .fv-diver {
-    width: 70%; /* モバイルのサイズも少し小さく */
-    height: 42%; /* モバイルのサイズも少し小さく */
-    right: 50%;
-    transform: translateX(50%);
+    width: 70%; /* モバイルのサイズを少し小さく */
+    height: 42%; /* モバイルのサイズを少し小さく */
+    right: 0%;
+    transform: none;
     bottom: 7%; /* 下の窮屈さを解消するため少し上に配置 */
-    justify-content: center;
-    animation: fvDiverFadeInMobile 2.5s ease-out both; /* 読み込み後すぐに（遅延なし）表示開始 */
-  }
-  
-  @keyframes fvDiverFadeInMobile {
-    from {
-      opacity: 0;
-      transform: translate(50%, 0);
-      filter: blur(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translate(50%, 0);
-      filter: blur(0);
-    }
+    justify-content: flex-end;
+    animation: fvDiverSoftFadeIn 2.5s ease-out both; /* 読み込み後すぐに（遅延なし）表示開始 */
   }
 }

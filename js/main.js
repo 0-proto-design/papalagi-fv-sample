@@ -2,6 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Seamless video loop logic
   const bgVideos = document.querySelectorAll('.fv-bg-video');
   if (bgVideos.length > 1) {
+    // 画面幅に応じて動画ソースを切り替え
+    let videoSrc = 'img/fv-bg-pc.mov';
+    const width = window.innerWidth;
+    if (width <= 767) {
+      videoSrc = 'img/fv-bg-sp.mov';
+    } else if (width <= 1024) {
+      videoSrc = 'img/fv-bg-tab.mov';
+    }
+    bgVideos.forEach(vid => {
+      vid.src = videoSrc;
+    });
+
     let isTransitioning = false;
     const fadeDuration = 0.5; // フェード時間を0.5秒に短縮して動画を最後まで再生させる
 
