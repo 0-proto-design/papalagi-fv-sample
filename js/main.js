@@ -2,17 +2,34 @@ document.addEventListener('DOMContentLoaded', () => {
   // Seamless video loop logic
   const bgVideos = document.querySelectorAll('.fv-bg-video');
   if (bgVideos.length > 1) {
-    // 画面幅に応じて動画ソースを切り替え
-    let videoSrc = 'img/fv-bg-pc.mov';
-    const width = window.innerWidth;
-    if (width <= 767) {
-      videoSrc = 'img/fv-bg-sp.mov';
-    } else if (width <= 1024) {
-      videoSrc = 'img/fv-bg-tab.mov';
-    }
-    bgVideos.forEach(vid => {
-      vid.src = videoSrc;
-    });
+    let currentVideoSrc = '';
+    const updateVideoSource = () => {
+      let newVideoSrc = 'img/fv-bg-pc.mov';
+      let newPosterSrc = 'img/fv-bg-pc-poster.png';
+      const width = window.innerWidth;
+      if (width <= 767) {
+        newVideoSrc = 'img/fv-bg-sp.mov';
+        newPosterSrc = 'img/fv-bg-sp-poster.png';
+      } else if (width <= 1024) {
+        newVideoSrc = 'img/fv-bg-tab.mov';
+        newPosterSrc = 'img/fv-bg-tab-poster.png';
+      }
+      
+      if (currentVideoSrc !== newVideoSrc) {
+        currentVideoSrc = newVideoSrc;
+        bgVideos.forEach(vid => {
+          vid.src = currentVideoSrc;
+          vid.poster = newPosterSrc;
+          vid.load();
+          if (vid.classList.contains('active')) {
+            vid.play().catch(err => console.log('Play prevented on resize', err));
+          }
+        });
+      }
+    };
+
+    updateVideoSource();
+    window.addEventListener('resize', updateVideoSource);
 
     let isTransitioning = false;
     const fadeDuration = 0.5; // フェード時間を0.5秒に短縮して動画を最後まで再生させる

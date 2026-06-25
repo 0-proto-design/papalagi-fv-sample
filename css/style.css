@@ -101,8 +101,7 @@ body {
 .fv {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 600px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background-color: #000;
 }
@@ -787,6 +786,10 @@ body {
 
 /* レスポンシブ調整 */
 @media (max-width: 1024px) {
+  .fv {
+    aspect-ratio: 3 / 4;
+  }
+
   .fv-bg-video {
     object-position: 68% bottom;
     transform-origin: 68% bottom;
@@ -815,6 +818,10 @@ body {
 }
 
 @media (max-width: 767px) {
+  .fv {
+    aspect-ratio: 9 / 16;
+  }
+
   .fv-bg-video {
     object-position: 58% bottom;
     transform-origin: 58% bottom;
@@ -837,8 +844,8 @@ body {
   }
   
   .fv-diver {
-    width: 70%; /* モバイルのサイズを少し小さく */
-    height: 42%; /* モバイルのサイズを少し小さく */
+    width: 80%; /* モバイルのサイズを少し大きく調整 */
+    height: 48%; /* モバイルのサイズを少し大きく調整 */
     right: 0%;
     transform: none;
     bottom: 7%; /* 下の窮屈さを解消するため少し上に配置 */
